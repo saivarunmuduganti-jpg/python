@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sorting Comparison</title>
+</head>
+<body>
+
+<h2>Bubble Sort vs Merge Sort</h2>
+
+<input type="text" id="numbers" placeholder="Enter numbers (comma separated)">
+<button onclick="compare()">Compare</button>
+
+<h3>Results:</h3>
+<p id="bubble"></p>
+<p id="merge"></p>
+
+<script>
+function compare() {
+    let nums = document.getElementById("numbers").value;
+
+    fetch("http://127.0.0.1:5000/compare", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ numbers: nums })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("bubble").innerText =
+            "Bubble Sort Time: " + data.bubble_time + " sec";
+
+        document.getElementById("merge").innerText =
+            "Merge Sort Time: " + data.merge_time + " sec";
+    });
+}
+</script>
+
+</body>
+</html>
